@@ -97,11 +97,11 @@ def create_tables(conn):
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS solicita (
         ID_SOLICITACAO INTEGER,
-        ID_ITEM INTEGER,
+        ID_TIPO INTEGER,
         QUANTIDADE INTEGER,
-        PRIMARY KEY (ID_SOLICITACAO, ID_ITEM),
+        PRIMARY KEY (ID_SOLICITACAO, ID_TIPO),
         FOREIGN KEY (ID_SOLICITACAO) REFERENCES solicitacao (ID_SOLICITACAO),
-        FOREIGN KEY (ID_ITEM) REFERENCES item (ID_ITEM)
+        FOREIGN KEY (ID_TIPO) REFERENCES tipo_item (ID_TIPO)
     );
     """)
 

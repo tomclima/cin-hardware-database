@@ -274,7 +274,7 @@ INSERT INTO solicitacao (
 """)
 
 cursor.execute("""
-INSERT INTO solicita (ID_SOLICITACAO, ID_ITEM, QUANTIDADE) VALUES
+INSERT INTO solicita (ID_SOLICITACAO, ID_TIPO, QUANTIDADE) VALUES
 (1, 3, 2),
 (1, 4, 5),
 (2, 1, 10),
