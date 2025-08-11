@@ -18,14 +18,14 @@ print(f"------------------------------------")
 
 # Listar todos os itens não disponíveis
 res = cur.execute("""
-    SELECT NOME
+    SELECT *
     FROM tipo_item
-    WHERE QUANTIDADE_DISP = 0
+    WHERE QUANTIDADE_DISP > 0
 """)
 
 print(f"------------------------------------")
 for row in res:
-    print(f"{row[0]}")
+    print(f"{row}")
 print(f"------------------------------------")
 
 # Listar todas as solicitações recebidas.
@@ -132,7 +132,7 @@ print(f"------------------------------------")
 res = cur.execute("""
     SELECT *
     FROM solicitacao
-    WHERE DATA_DEVOLUCAO IS NOT NULL
+    WHERE DATA_DEVOLUCAO NOT NULL
 """)
 
 print(f"------------------------------------")
