@@ -1,11 +1,11 @@
 import sqlite3
 
-con = sqlite3.connect("test.db")
+con = sqlite3.connect("cin_hardware.db")
 cur = con.cursor()
 
 # Listar todos os itens
 res = cur.execute("""
-    SELECT nome, quantidade_disp, desc_tipo_item
+    SELECT NOME, QUANTIDADE_DISP, DESC_TIPO_ITEM
     FROM tipo_item
 """)
 
@@ -16,9 +16,9 @@ print(f"------------------------------------")
 
 # Listar todos os itens em estoque
 res = cur.execute("""
-    SELECT nome, quantidade_disp, desc_tipo_item
+    SELECT NOME, QUANTIDADE_DISP, DESC_TIPO_ITEM
     FROM tipo_item
-    WHERE quantidade_disp > 0
+    WHERE QUANTIDADE_DISP > 0
 """)
 
 print(f"------------------------------------")
@@ -28,9 +28,9 @@ print(f"------------------------------------")
 
 # Listar todos os itens não disponíveis
 res = cur.execute("""
-    SELECT nome
+    SELECT NOME
     FROM tipo_item
-    WHERE quantidade_disp = 0
+    WHERE QUANTIDADE_DISP = 0
 """)
 
 print(f"------------------------------------")
@@ -53,7 +53,7 @@ print(f"------------------------------------")
 res = cur.execute("""
     SELECT *
     FROM solicitacao
-    WHERE status_solicitacao = 'pendente'
+    WHERE STATUS_SOL = 'pendente'
 """)
 
 print(f"------------------------------------")
@@ -65,7 +65,7 @@ print(f"------------------------------------")
 res = cur.execute("""
     SELECT *
     FROM solicitacao
-    WHERE status_solicitacao = 'aprovada'
+    WHERE STATUS_SOL = 'aprovada'
 """)
 
 print(f"------------------------------------")
@@ -77,7 +77,7 @@ print(f"------------------------------------")
 res = cur.execute("""
     SELECT *
     FROM solicitacao
-    WHERE status_solicitacao = 'rejeitada'
+    WHERE STATUS_SOL = 'rejeitada'
 """)
 
 print(f"------------------------------------")
@@ -87,11 +87,10 @@ print(f"------------------------------------")
 
 # Listar todas as solicitações de uma pessoa numa data específica
 res = cur.execute("""
-    SELECT pessoa_fisica.nome, solicitacao.*
-    FROM
-    pessoa_fisica JOIN solicitacao
-    ON pessoa_fisica.CPF = solicitacao.CPF
-    where data_solicitacao = '2025-01-18'
+    SELECT pessoa_fisica.NOME, solicitacao.*
+    FROM pessoa_fisica
+    JOIN solicitacao ON pessoa_fisica.CPF = solicitacao.CPF
+    WHERE DATA_SOLICITACAO = '2025-01-18'
 """)
 
 print(f"------------------------------------")
@@ -99,13 +98,13 @@ for row in res:
     print(f"{row}")
 print(f"------------------------------------")
 
-# Listar os itens de uma solicitação (solicitacao de id = 1)
+# Listar os itens de uma solicitação (solicitação de id = 1)
 res = cur.execute("""
-    SELECT tipo_item.nome, solicita.quantidade
-    FROM tipo_item
-    JOIN solicita
-    ON tipo_item.id_item = solicita.id_item
-    WHERE solicita.id_solicitacao = 1
+    SELECT tipo_item.NOME, solicita.QUANTIDADE
+    FROM solicita
+    JOIN item ON solicita.ID_ITEM = item.ID_ITEM
+    JOIN tipo_item ON item.ID_TIPO = tipo_item.ID_TIPO
+    WHERE solicita.ID_SOLICITACAO = 1
 """)
 
 print(f"------------------------------------")
@@ -113,13 +112,13 @@ for row in res:
     print(f"{row}")
 print(f"------------------------------------")
 
-# Listar todos os empréstimos de itens -- Não sei se entendi
+# Listar todos os empréstimos de itens (solicitações aprovadas com itens associados)
 res = cur.execute("""
-    SELECT *
+    SELECT s.*, so.*, r.*
     FROM solicitacao s
-    JOIN solicita so ON s.id_solicitacao = so.id_solicitacao
-    JOIN responsavel r ON so.id_item = r.id_item
-    WHERE s.status_solicitacao = 'aprovada'
+    JOIN solicita so ON s.ID_SOLICITACAO = so.ID_SOLICITACAO
+    LEFT JOIN responsavel r ON so.ID_ITEM = r.ID_ITEM AND s.ID_SOLICITACAO = r.ID_SOLICITACAO
+    WHERE s.STATUS_SOL = 'aprovada'
 """)
 
 print(f"------------------------------------")
@@ -131,7 +130,7 @@ print(f"------------------------------------")
 res = cur.execute("""
     SELECT *
     FROM solicitacao
-    WHERE data_devolucao IS NOT NULL
+    WHERE DATA_DEVOLUCAO IS NOT NULL
 """)
 
 print(f"------------------------------------")
@@ -141,13 +140,13 @@ print(f"------------------------------------")
 
 # Listar todos os empréstimos de um item (id = 1)
 res = cur.execute("""
-    SELECT ti.nome, s.*
+    SELECT ti.NOME, s.*
     FROM solicitacao s
-    JOIN solicita so ON s.id_solicitacao = so.id_solicitacao
-    JOIN item i ON so.id_item = i.id_item
-    JOIN tipo_item ti ON i.id_item = ti.id_item
-    WHERE i.id_item = 3
-    AND s.status_solicitacao = 'aprovada'
+    JOIN solicita so ON s.ID_SOLICITACAO = so.ID_SOLICITACAO
+    JOIN item i ON so.ID_ITEM = i.ID_ITEM
+    JOIN tipo_item ti ON i.ID_TIPO = ti.ID_TIPO
+    WHERE i.ID_ITEM = 1
+    AND s.STATUS_SOL = 'aprovada'
 """)
 
 print(f"------------------------------------")
