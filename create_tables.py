@@ -5,11 +5,58 @@ def create_tables(conn):
 
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS pessoa_fisica (
-        CPF TEXT PRIMARY KEY,
-        NOME TEXT NOT NULL,
-        EMAIL TEXT,
-        UNIQUE(NOME, EMAIL)
-    );
+    CPF TEXT PRIMARY KEY
+        CHECK (
+            -- 1. Garante o formato de 11 dígitos numéricos
+            length(CPF) = 11 AND CPF GLOB '[0-9]*'
+                   
+            -- 2. Rejeita CPFs inválidos com todos os dígitos iguais
+            AND CPF NOT IN (
+                '00000000000', '11111111111', '22222222222', '33333333333',
+                '44444444444', '55555555555', '66666666666', '77777777777',
+                '88888888888', '99999999999'
+            )
+                   
+            -- 3. Valida o primeiro dígito verificador
+            AND CAST(substr(CPF, 10, 1) AS INTEGER) =
+                CASE
+                    WHEN (
+                        (CAST(substr(CPF,1,1) AS INTEGER)*10 + CAST(substr(CPF,2,1) AS INTEGER)*9 +
+                         CAST(substr(CPF,3,1) AS INTEGER)*8 + CAST(substr(CPF,4,1) AS INTEGER)*7 +
+                         CAST(substr(CPF,5,1) AS INTEGER)*6 + CAST(substr(CPF,6,1) AS INTEGER)*5 +
+                         CAST(substr(CPF,7,1) AS INTEGER)*4 + CAST(substr(CPF,8,1) AS INTEGER)*3 +
+                         CAST(substr(CPF,9,1) AS INTEGER)*2) % 11
+                    ) < 2 THEN 0
+                    ELSE 11 - (
+                        (CAST(substr(CPF,1,1) AS INTEGER)*10 + CAST(substr(CPF,2,1) AS INTEGER)*9 +
+                         CAST(substr(CPF,3,1) AS INTEGER)*8 + CAST(substr(CPF,4,1) AS INTEGER)*7 +
+                         CAST(substr(CPF,5,1) AS INTEGER)*6 + CAST(substr(CPF,6,1) AS INTEGER)*5 +
+                         CAST(substr(CPF,7,1) AS INTEGER)*4 + CAST(substr(CPF,8,1) AS INTEGER)*3 +
+                         CAST(substr(CPF,9,1) AS INTEGER)*2) % 11
+                    )
+                END
+            -- 4. Valida o segundo dígito verificador
+            AND CAST(substr(CPF, 11, 1) AS INTEGER) =
+                CASE
+                    WHEN (
+                        (CAST(substr(CPF,1,1) AS INTEGER)*11 + CAST(substr(CPF,2,1) AS INTEGER)*10 +
+                         CAST(substr(CPF,3,1) AS INTEGER)*9  + CAST(substr(CPF,4,1) AS INTEGER)*8  +
+                         CAST(substr(CPF,5,1) AS INTEGER)*7  + CAST(substr(CPF,6,1) AS INTEGER)*6  +
+                         CAST(substr(CPF,7,1) AS INTEGER)*5  + CAST(substr(CPF,8,1) AS INTEGER)*4  +
+                         CAST(substr(CPF,9,1) AS INTEGER)*3  + CAST(substr(CPF,10,1) AS INTEGER)*2) % 11
+                    ) < 2 THEN 0
+                    ELSE 11 - (
+                        (CAST(substr(CPF,1,1) AS INTEGER)*11 + CAST(substr(CPF,2,1) AS INTEGER)*10 +
+                         CAST(substr(CPF,3,1) AS INTEGER)*9  + CAST(substr(CPF,4,1) AS INTEGER)*8  +
+                         CAST(substr(CPF,5,1) AS INTEGER)*7  + CAST(substr(CPF,6,1) AS INTEGER)*6  +
+                         CAST(substr(CPF,7,1) AS INTEGER)*5  + CAST(substr(CPF,8,1) AS INTEGER)*4  +
+                         CAST(substr(CPF,9,1) AS INTEGER)*3  + CAST(substr(CPF,10,1) AS INTEGER)*2) % 11
+                    )
+                END
+        ),
+    NOME  TEXT NOT NULL,
+    EMAIL TEXT UNIQUE
+);
     """)
 
     cursor.execute("""

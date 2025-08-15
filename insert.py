@@ -5,36 +5,8 @@ cursor = conn.cursor()
 
 cursor.execute("""
 INSERT INTO pessoa_fisica (CPF, nome, email) VALUES
-('12345678900', 'Ana Silva', 'ana.silva@cin.ufpe.br'),
-('98765432100', 'Bruno Costa', 'bruno.costa@cin.ufpe.br'),
-('45678912300', 'Carlos Souza', 'carlos.souza@cin.ufpe.br'),
-('78912345600', 'Diana Rocha', 'diana.rocha@cin.ufpe.br'),
-('11122233344', 'Eduardo Lima', 'eduardo.lima@cin.ufpe.br'),
-('22233344455', 'Fernanda Alves', 'fernanda.alves@cin.ufpe.br'),
-('33344455566', 'Gabriel Moura', 'gabriel.moura@cin.ufpe.br'),
-('44455566677', 'Helena Souza', 'helena.souza@cin.ufpe.br'),
-('55566677788', 'Igor Fernandes', 'igor.fernandes@cin.ufpe.br'),
-('66677788899', 'Julia Ramos', 'julia.ramos@cin.ufpe.br'),
-('77788899900', 'Lucas Pereira', 'lucas.pereira@cin.ufpe.br'),
-('88899900011', 'Marina Torres', 'marina.torres@cin.ufpe.br'),
-('99900011122', 'Fernando Lima', 'fernando.lima@cin.ufpe.br'),
-('00011122233', 'Gabriela Alves', 'gabriela.alves@cin.ufpe.br'),
-('11122233300', 'Henrique Santos', 'henrique.santos@cin.ufpe.br'),
-('22233344400', 'Isabela Pereira', 'isabela.pereira@cin.ufpe.br'),
-('33344455500', 'João Silva', 'joao.silva@cin.ufpe.br'),
-('44455566600', 'Karina Costa', 'karina.costa@cin.ufpe.br'),
-('55566677700', 'Leonardo Souza', 'leonardo.souza@cin.ufpe.br'),
-('66677788800', 'Mariana Dias', 'mariana.dias@cin.ufpe.br'),
-('77788899901', 'Nicolas Martins', 'nicolas.martins@cin.ufpe.br'),
-('88899900002', 'Olivia Rocha', 'olivia.rocha@cin.ufpe.br'),
-('99900011103', 'Pedro Costa', 'pedro.costa@cin.ufpe.br'),
-('00011122204', 'Queila Lima', 'queila.lima@cin.ufpe.br'),
-('11122233305', 'Rafael Torres', 'rafael.torres@cin.ufpe.br'),
-('22233344406', 'Tiago Carvalho', 'tiago.carvalho@cin.ufpe.br'),
-('33344455507', 'Vanessa Dias', 'vanessa.dias@cin.ufpe.br'),
-('44455566608', 'Wesley Souza', 'wesley.souza@cin.ufpe.br'),
-('55566677709', 'Xavier Lopes', 'xavier.lopes@cin.ufpe.br'),
-('66677788810', 'Yara Moura', 'yara.moura@cin.ufpe.br');""")
+('48215937500', 'Sofia Oliveira', 'sofia.oliveira@emailteste.com'),
+('73958162428', 'Miguel Souza', 'miguel.souza@emailteste.com');""")
 
 cursor.execute("""
 INSERT INTO professor (CPF) VALUES
