@@ -5,7 +5,7 @@ def create_tables(conn):
 
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS pessoa_fisica (
-    CPF TEXT PRIMARY KEY
+    CPF TEXT PRIMARY KEY,
     NOME TEXT NOT NULL,
     EMAIL TEXT UNIQUE
 );
@@ -21,7 +21,7 @@ def create_tables(conn):
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS disciplina (
         ID_DISCIPLINA TEXT PRIMARY KEY,
-        nome TEXT NOT NULL,
+        nome TEXT NOT NULL
     );
     """)
 
