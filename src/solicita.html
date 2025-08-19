@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Laboratório de Hardware</title>
+        <link rel="stylesheet" href="css/solicita.css">
+    </head>
+    <body>
+        <header>
+            <h1> Laboratório de Hardware </h1>
+            <nav>
+                <a href="solicita.html" class="active">Fazer solicitação</a>
+            </nav>
+        </header>
+        <main class="solicita">
+            <section class="form-solicita">
+                <h2> Nova Solicitação de Componente </h2>
+                <form id="solicita-form">
+                    <div class="form-group">
+                        <label for="cpf">CPF</label>
+                        <input type="text" id="cpf" name="cpf" placeholder="123.456.678-00" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descricao">Descrição da solicitação</label>
+                        <textarea id="descricao" name="descricao" rows="4" placeholder="Ex: Projeto de Introdução a Computação"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="data_entrega">Data de retirada:</label>
+                        <input type="date" id="data_entrega" name="data_entrega" required>
+                    </div>
+
+                    <hr>
+
+                    <h3>Adicionar Itens</h3>
+                    <div class="item-adder">
+                        <div class="form-group">
+                            <label for="tipo_item">Componente</label>
+                            <input type="text" id="tipo_item" name="tipo_item" placeholder="Arduino Uno" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="quantidade">Quantidade</label>
+                            <input type="number" id="quantidade" name="quantidade" min="1" value="1">
+                        </div>
+                        <button type="button" id="add-item-btn">Adicionar item</button>
+
+                        <h4>Itens na Solicitação</h4>
+                        <ul id="item-list">
+                        </ul>
+
+                        <button type="submit" class="submit-btn">Enviar Solicitação</button>
+                    </div>
+                </form>
+            </section>
+        </main>
+    </body>
+</html> 

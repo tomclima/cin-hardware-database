@@ -1,6 +1,6 @@
 import sqlite3
 
-con = sqlite3.connect("cin_hardware.db")
+con = sqlite3.connect("./Database/cin_hardware.db")
 cur = con.cursor()
 
 # Listar todos os itens
