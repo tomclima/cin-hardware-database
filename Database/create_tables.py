@@ -165,5 +165,5 @@ def create_tables(conn):
 
     conn.commit()
 
-conn = sqlite3.connect("./Database/cin_hardware.db")
+conn = sqlite3.connect("./cin_hardware.db")
 create_tables(conn)

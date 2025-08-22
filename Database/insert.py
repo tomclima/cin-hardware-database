@@ -1,6 +1,6 @@
 import sqlite3
 
-conn = sqlite3.connect("./Database/cin_hardware.db")
+conn = sqlite3.connect("./cin_hardware.db")
 cursor = conn.cursor()
 
 cursor.execute("""
