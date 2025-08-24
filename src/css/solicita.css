@@ -80,3 +80,23 @@ nav a:active{
 .form-group-inline .form-group{
     flex: 1;
 }
+
+#item-list li{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+.remove-item-bnt{
+    background-color: #db1e2f;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+}
+.remove-item-btn:hover {
+    background-color: #db1e2f;
+}
