@@ -1,0 +1,102 @@
+/* Estilos Gerais*/
+body {
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    background-color: #f4f4f9;
+    line-height: 1.6;
+}
+
+.solicita {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 5px;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    margin: 20px 0;
+}
+
+/* Header e  Navegação */ 
+header{
+    padding: 1rem 0;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1)
+}
+
+nav{
+    margin-top: 10px;
+}
+
+nav a{
+    color: #db1e2f;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+
+nav a:hover{
+    background-color: #616161;
+}
+
+nav a:active{
+    background-color: #e67e22;
+}
+
+/* Estilo do formulário */
+.form-solicita{
+    background-color: #abc;
+    padding: 25px;
+    border-radius: 8;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+
+.form-group{
+    margin-bottom: 15px;
+}
+
+.form-group label{
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input[type="text"],
+.form-group input[type="date"],
+.form-group input[type="number"],
+.form-group textarea{
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-group-inline{
+    display: flex;
+    gap: 20px;
+}
+
+.form-group-inline .form-group{
+    flex: 1;
+}
+
+#item-list li{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+.remove-item-bnt{
+    background-color: #db1e2f;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+}
+.remove-item-btn:hover {
+    background-color: #db1e2f;
+}
