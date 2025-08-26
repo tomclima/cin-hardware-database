@@ -1,3 +1,47 @@
+// Função para verificar CPF
+function validarCPF(cpf) {
+    // 1. Remove pontos e traços
+    cpf = String(cpf).replace(/[^\d]+/g, '');
+
+    // 2. Verifica se tem 11 dígitos
+    if (cpf.length !== 11)
+        return false;
+
+    // 3.Verifica se todos os dígitos não são iguais (ex: 111.111.111-11)
+    if (/^(\d)\1+$/.test(cpf))
+        return false;
+
+    // 4. Validação dos dígitos verificadores
+    let soma = 0;
+    let resto;
+    // --- Cálculo do 1o dígito verificador ---
+    for (let i = 1; i <= 9; i++) {
+        soma += parseInt(cpf.substring(i - 1, i)) * (11 - i);
+    }
+    resto = (soma * 10) % 11;
+
+    if ((resto === 10) || (resto === 11))
+        resto = 0;
+
+    if (resto !== parseInt(cpf.substring(9, 10)))
+        return false;
+
+    // --- Cálculo do 2o dígito verificador ---
+    soma = 0;
+    for (let i = 1; i <= 10; i++) {
+        soma += parseInt(cpf.substring(i - 1, i)) * (12 - i);
+    }
+
+    if ((resto === 10) || (resto === 11))
+        resto = 0;
+
+    if (resto !== parseInt(cpf.substring(9, 10)))
+        return false;
+
+    // Se passou por tudo, o CPF é válido
+    return true;
+}
+
 document.addEventListener('DOMContentLoaded', function() { // Aguarda o documento ser carregado
 
     // Seleciona elementos do formulario
@@ -74,14 +118,36 @@ document.addEventListener('DOMContentLoaded', function() { // Aguarda o document
     solicitaForm.addEventListener('submit', function(event){
         event.preventDefault() // Previne o comportamento padrão de recarregar a pagina
 
-        const cpf = document.getElementById('cpf').value;
+        const cpfInput = document.getElementById('cpf')
+        const cpf = cpfInput.value;
         const descricao = document.getElementById('descricao').value;
-        const dataEntrega = document.getElementById('data_entrega').value;
+        const dataEntregaInput = document.getElementById('data_entrega');
+        const dataEntrega = dataEntregaInput.value;
         
         // Validar para não deixar enviar uma solicitação sem itens
         if(itensDaSolicitacao.length === 0){
             alert("Você precisa adicionar pelo menos um item à solicitação");
             return; //Interrompe o envio
+        }
+
+        // Validando CPF
+        if(!validarCPF(cpf)){
+            alert("CPF inválido!");
+            cpfInput.focus(); // Coloca o foco de volta no campo CPF
+            return;
+        }
+
+        // Validação da data de entrega
+        const hoje = new Date();
+        hoje.setHours(0,0,0,0);
+
+        const [ano, mes, dia] = dataEntrega.split('-').map(Number);
+        const dataSelecionada = new Date(ano, mes - 1, dia); // O mês é 0-indexed (0=Janeiro, 11=Dezembro)
+
+        if(dataSelecionada < hoje){
+            alert("A data de entrega não pode ser anterior à data de hoje!");
+            dataEntregaInput.focus(); // Coloca o foco de volta no campo data de entrega
+            return;
         }
 
         // Montando o objeto final com todos os itens da solicitação
